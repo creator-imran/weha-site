@@ -1,28 +1,29 @@
+import useSEO from "@/hooks/useSEO";
+import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import PageHero from "@/components/PageHero";
-import CTABanner from "@/components/CTABanner";
 import Reveal from "@/components/Reveal";
 import ScrollSection from "@/components/ScrollSection";
 
-const ABOUT_IMG = "https://static.prod-images.emergentagent.com/jobs/d99f9931-db5c-4ca2-b931-d6fcff8ded90/images/258b624bb01106851a47a12dd52dbd36909965f6f8188fe7423bb709d4ef20c2.png";
-
-const securityPoints = [
-  "Client data sent to the wrong tool → a PDPL violation in the UAE, a Privacy Act breach in Australia.",
-  "An AI agent making commitments your contract doesn't allow → legal liability.",
-  "Automation scraping without controls → IP banned, competitive advantage lost.",
-];
-
 const values = [
-  ["Specificity over vagueness", "We quote workflows, not \"efficiency gains.\""],
-  ["You own your automations", "We document everything and hand it over."],
-  ["Compliance is not optional", "Especially in real estate, finance, and freight."],
-  ["Pilot before you commit", "Every engagement starts with one workflow, proven ROI first."],
-  ["Plain English, always", "No jargon in client calls, proposals, or documentation."],
+  { heading: "Compliance first, automation second.", body: "We scope every project against your regulator before writing a line of code. If it's not compliant, it doesn't ship." },
+  { heading: "No pitch decks. No retainers.", body: "We show you a working automation in the audit call. You pay for what gets built — nothing before that." },
+  { heading: "You own everything.", body: "Full source, documentation, and data-flow diagrams handed over at project close. No lock-in." },
+  { heading: "Specific beats generic.", body: "We serve three markets and six verticals. That's it. Depth over breadth." },
 ];
 
 export default function About() {
+  useSEO({
+    title: "About WeHA — Compliance-Grade AI Automation Agency | Founded by an IAM Specialist",
+    description:
+      "WeHA was founded by an IAM and cybersecurity specialist who spent a decade inside enterprise security. We build AI automations that regulators won't flag — for SMBs in the UAE, Australia, and Singapore.",
+    canonical: "/about",
+  });
+
   return (
     <div data-testid="about-page" className="overflow-x-hidden">
       <PageHero
+        kicker="About"
         title="Built by someone who spent a decade keeping systems secure — and a lot of time watching founders"
         italicWord="lose theirs to manual work."
         formHeading="Get the AI Transformation Playbook"
@@ -36,36 +37,26 @@ export default function About() {
         <div className="max-w-7xl mx-auto px-5 sm:px-8 grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16 items-start">
           <Reveal>
             <div className="rounded-2xl overflow-hidden border border-weha-border bg-weha-surface">
-              <img
-                src={ABOUT_IMG}
-                alt="WeHA founder illustration — security architecture meets automation"
-                loading="lazy"
-                className="w-full h-auto object-cover"
-                data-testid="about-illustration"
-              />
+              <div className="aspect-[4/5] bg-weha-surface-offset flex items-center justify-center">
+                <span className="text-weha-faint text-sm">Founder photo</span>
+              </div>
             </div>
           </Reveal>
           <Reveal delay={0.1}>
-            <div className="space-y-6 text-lg text-weha-text leading-relaxed">
-              <p>
-                The founder of WeHA spent ten years in enterprise security architecture — IAM,
-                access controls, the unglamorous discipline of making sure data only ever goes
-                where it's allowed to go.
+            <div className="space-y-5 pt-2">
+              <span className="text-xs font-semibold tracking-[0.2em] uppercase text-weha-teal">Founder</span>
+              <h2 className="weha-display text-3xl md:text-4xl text-weha-text">
+                A decade in IAM &amp; cybersecurity. Now fixing the part that comes after.
+              </h2>
+              <p className="text-weha-muted leading-relaxed">
+                Before starting WeHA, our founder spent years designing and auditing identity and access management systems for enterprise clients across the Gulf and APAC. He saw the same pattern everywhere: companies were automating fast, compliance was an afterthought, and the regulator notices came six months later.
               </p>
-              <p className="text-weha-muted">
-                The inflection point was watching small business owners — friends, colleagues,
-                clients — drown in work that a $50/month n8n subscription could solve. Hours lost
-                every week to copying, chasing, and re-typing.
+              <p className="text-weha-muted leading-relaxed">
+                WeHA was built specifically to close that gap — automation that moves fast <em>and</em> stays clean. Every workflow we ship comes with a compliance checklist for your jurisdiction's regulator.
               </p>
-              <p className="text-weha-muted">
-                The insight: most AI agencies are built by developers who don't understand
-                compliance risk. They automate first and ask permission later. WeHA was built by
-                someone who knows exactly what happens when data moves without controls.
-              </p>
-              <p>
-                So the decision was simple — build the automation agency that SMB founders in
-                regulated industries could actually trust.
-              </p>
+              <Link to="/contact" className="btn-teal inline-flex" data-cursor="hover">
+                Book a Free AI Audit <ArrowRight size={16} />
+              </Link>
             </div>
           </Reveal>
         </div>
@@ -78,22 +69,24 @@ export default function About() {
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <Reveal>
             <h2 className="weha-display text-4xl md:text-5xl text-weha-text max-w-3xl">
-              Why security thinking matters for automation.
+              Why a security background matters for automation.
             </h2>
           </Reveal>
-          <div className="mt-12 grid gap-8 md:grid-cols-3">
-            {securityPoints.map((p, i) => (
+          <div className="grid gap-8 md:grid-cols-2 mt-12">
+            {[
+              ["We know where data leaks.", "Most automation tools route data through third-party servers by default. We map every data touch-point before we pick a stack."],
+              ["We know what regulators look for.", "UAE PDPL, Australia Privacy Act, Singapore PDPA — we've read the enforcement notices. We build so you don't become one."],
+              ["We know how to document for audit.", "Every workflow comes with a data-flow diagram your DPO or compliance officer can hand to a regulator."],
+              ["We know what not to automate.", "Some processes should stay human. We'll tell you that in the audit — before you pay for a build."],
+            ].map(([h, b], i) => (
               <Reveal key={i} delay={i * 0.08}>
-                <p className="text-lg text-weha-text leading-relaxed border-t-2 border-weha-teal pt-5">{p}</p>
+                <div className="weha-card p-7">
+                  <h3 className="font-semibold text-weha-text mb-2">{h}</h3>
+                  <p className="text-weha-muted text-sm leading-relaxed">{b}</p>
+                </div>
               </Reveal>
             ))}
           </div>
-          <Reveal delay={0.1}>
-            <p className="mt-14 weha-display text-3xl md:text-4xl text-weha-text italic max-w-4xl leading-snug">
-              "We build automation like we build security architecture: minimal permissions,
-              documented flows, zero assumptions."
-            </p>
-          </Reveal>
         </div>
       </section>
       </ScrollSection>
@@ -104,24 +97,28 @@ export default function About() {
         <div className="max-w-7xl mx-auto px-5 sm:px-8 grid gap-14 md:grid-cols-2 md:gap-16">
           <Reveal>
             <div>
-              <span className="text-xs font-semibold tracking-widest uppercase text-weha-teal">The public face of WeHA</span>
-              <h3 className="weha-display text-3xl md:text-4xl mt-3 text-weha-text">[Director Name]</h3>
-              <p className="mt-5 text-weha-muted leading-relaxed text-lg">
-                [Director Name] leads client relationships and go-to-market — and makes sure every
-                engagement starts with the right questions before any code is written. The
-                technical founder stays behind the scenes, building.
+              <span className="text-xs font-semibold tracking-[0.2em] uppercase text-weha-teal block mb-3">Director</span>
+              <h2 className="weha-display text-3xl md:text-4xl text-weha-text mb-4">The face clients meet.</h2>
+              <p className="text-weha-muted leading-relaxed">
+                Our Director leads client relationships across all three markets — UAE, Australia, and Singapore. They're the person on the call, not a salesperson.
               </p>
             </div>
           </Reveal>
           <Reveal delay={0.1}>
             <div>
-              <span className="text-xs font-semibold tracking-widest uppercase text-weha-teal">Markets</span>
-              <ul className="mt-5 space-y-4 text-xl text-weha-text">
-                <li>🇦🇪 UAE — Dubai</li>
-                <li>🇦🇺 Australia</li>
-                <li>🇸🇬 Singapore</li>
+              <span className="text-xs font-semibold tracking-[0.2em] uppercase text-weha-teal block mb-3">Markets</span>
+              <ul className="space-y-3">
+                {[
+                  ["UAE (Dubai)", "Real estate, freight, events & exhibitions"],
+                  ["Australia", "Accounting, mortgage & finance brokers"],
+                  ["Singapore", "Fintech, financial services (MAS-regulated)"],
+                ].map(([market, desc], i) => (
+                  <li key={i} className="weha-card px-5 py-4">
+                    <span className="font-semibold text-weha-text block">{market}</span>
+                    <span className="text-sm text-weha-muted">{desc}</span>
+                  </li>
+                ))}
               </ul>
-              <p className="mt-6 text-weha-muted">Fully remote delivery. On-site available in Dubai.</p>
             </div>
           </Reveal>
         </div>
@@ -135,29 +132,18 @@ export default function About() {
           <Reveal>
             <h2 className="weha-display text-4xl md:text-5xl text-weha-text">What we believe.</h2>
           </Reveal>
-          <div className="mt-12 divide-y divide-weha-border border-t border-weha-border">
-            {values.map(([title, body], i) => (
-              <Reveal key={title} delay={(i % 3) * 0.06}>
-                <div className="py-7 grid gap-2 md:grid-cols-[auto_1fr] md:gap-10 items-baseline">
-                  <span className="weha-display text-2xl text-weha-teal/40 w-12">{String(i + 1).padStart(2, "0")}</span>
-                  <div>
-                    <h3 className="weha-display text-2xl md:text-3xl text-weha-text">{title}</h3>
-                    <p className="mt-1.5 text-weha-muted text-lg">{body}</p>
-                  </div>
-                </div>
+          <ul className="grid gap-6 md:grid-cols-2 mt-12">
+            {values.map((v, i) => (
+              <Reveal key={i} delay={i * 0.08}>
+                <li className="weha-card p-7">
+                  <h3 className="font-semibold text-weha-text mb-2">{v.heading}</h3>
+                  <p className="text-weha-muted text-sm leading-relaxed">{v.body}</p>
+                </li>
               </Reveal>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
-      </ScrollSection>
-
-      <ScrollSection direction="left">
-      <CTABanner
-        heading="Compliance-grade automation, built around your business."
-        sub="Start with a free 60-minute audit. No code written until we've mapped the workflow."
-        testid="about-cta"
-      />
       </ScrollSection>
     </div>
   );

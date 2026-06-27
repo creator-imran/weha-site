@@ -3,47 +3,64 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#5b3fa6" />
-        <meta name="description" content="We Help Automate (WeHA) — compliance-grade AI automation for SMBs in real estate, freight, accounting and finance across the UAE, Australia and Singapore." />
+
+        <!-- Default theme colour (teal, not purple) -->
+        <meta name="theme-color" content="#01696f" />
+
+        <!-- Default title & description — useSEO hook overrides these per-page -->
+        <title>WeHA — We Help Automate | Compliance-Grade AI Automation</title>
+        <meta name="description" content="WeHA automates the manual workflows draining your business — without touching your compliance standing. Serving real estate, freight, accounting and finance SMBs across the UAE, Australia and Singapore." />
+        <meta name="robots" content="index, follow" />
+
+        <!-- Open Graph defaults (overridden per-page by useSEO) -->
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="WeHA — We Help Automate" />
+        <meta property="og:title" content="WeHA — We Help Automate | Compliance-Grade AI Automation" />
+        <meta property="og:description" content="WeHA automates the manual workflows draining your business — without touching your compliance standing. Serving real estate, freight, accounting and finance SMBs across the UAE, Australia and Singapore." />
+        <meta property="og:url" content="https://wehelpautomate.com" />
+        <meta property="og:image" content="https://wehelpautomate.com/og-image.jpg" />
+        <meta property="og:locale" content="en_US" />
+
+        <!-- Twitter / X Card defaults -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="WeHA — We Help Automate | Compliance-Grade AI Automation" />
+        <meta name="twitter:description" content="WeHA automates the manual workflows draining your business — without touching your compliance standing." />
+        <meta name="twitter:image" content="https://wehelpautomate.com/og-image.jpg" />
+
+        <!-- Structured data: Organization -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          "name": "WeHA — We Help Automate",
+          "url": "https://wehelpautomate.com",
+          "logo": "https://wehelpautomate.com/favicon.svg",
+          "description": "Compliance-grade AI automation for SMBs in real estate, freight, accounting and finance across the UAE, Australia and Singapore.",
+          "email": "hello@wehelpautomate.com",
+          "areaServed": ["AE", "AU", "SG"],
+          "sameAs": []
+        }
+        </script>
+
+        <!-- Favicons -->
         <link rel="icon" type="image/svg+xml" href="%PUBLIC_URL%/favicon.svg" />
         <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/favicon-16x16.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/apple-touch-icon.png" />
+
+        <!-- Font preconnects -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
         <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet" />
-        <!--
-        manifest.json provides metadata used when your web app is installed on a
-        user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-        -->
-        <!--
-        Notice the use of %PUBLIC_URL% in the tags above.
-        It will be replaced with the URL of the `public` folder during the build.
-        Only files inside the `public` folder can be referenced from the HTML.
 
-        Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-        work correctly both with client-side routing and a non-root public URL.
-        Learn how to configure a non-root public URL by running `npm run build`.
-        -->
-        <title>WeHA — We Help Automate | Compliance-grade AI automation</title>
         <script>window.addEventListener("error",function(e){if(e.error instanceof DOMException&&e.error.name==="DataCloneError"&&e.message&&e.message.includes("PerformanceServerTiming")){e.stopImmediatePropagation();e.preventDefault()}},true);</script>
         <script src="https://assets.emergent.sh/scripts/emergent-main.js"></script>
     </head>
     <body>
         <noscript>You need to enable JavaScript to run this app.</noscript>
         <div id="root"></div>
-        <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
         <script>
             !(function (t, e) {
                 var o, n, p, r;
@@ -108,7 +125,7 @@
             })(document, window.posthog || []);
             posthog.init("phc_xAvL2Iq4tFmANRE7kzbKwaSqp1HJjN7x48s3vr0CMjs", {
                 api_host: "https://us.i.posthog.com",
-                person_profiles: "identified_only", // or 'always' to create profiles for anonymous users as well,
+                person_profiles: "identified_only",
                 session_recording: {
                     recordCrossOriginIframes: true,
                     capturePerformance: false,

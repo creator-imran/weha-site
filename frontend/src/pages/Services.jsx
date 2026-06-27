@@ -1,125 +1,116 @@
+import useSEO from "@/hooks/useSEO";
+import { ArrowRight, Shield, Zap, Bot } from "lucide-react";
+import { Link } from "react-router-dom";
 import PageHero from "@/components/PageHero";
-import CTABanner from "@/components/CTABanner";
 import Reveal from "@/components/Reveal";
 import ScrollSection from "@/components/ScrollSection";
 
 const services = [
   {
-    n: "Service 01",
-    title: "Stop losing leads to slow response times",
-    name: "Lead Capture & Qualification Automation",
-    desc: "AI-powered WhatsApp and email flows that capture, qualify, and route inbound leads automatically — built for real estate brokerages, mortgage brokers, and service businesses.",
-    get: ["WhatsApp bot", "Lead scoring logic", "CRM integration", "Loom walkthrough of the system"],
-    built: "n8n + Claude + WhatsApp Business API + HubSpot / Airtable",
-    roi: "One brokerage went from 4-hour lead response to 4-minute response. Deals stopped going cold.",
-    price: "AED 3,500 / AUD 1,500 setup",
+    icon: <Zap size={22} />,
+    name: "Lead Capture Automation",
+    price: "From AED 3,500 / AUD 1,500",
+    description:
+      "WhatsApp, web form, and CRM workflows that capture, qualify, and route leads automatically — with full audit trails for your regulator.",
+    includes: [
+      "WhatsApp Business API integration",
+      "CRM sync (HubSpot, Salesforce, or custom)",
+      "Compliance-grade data handling documentation",
+      "Lead scoring and routing rules",
+    ],
   },
   {
-    n: "Service 02",
-    title: "Stop being the system that connects your tools",
-    name: "Workflow & Document Automation",
-    desc: "Map your manual process — RFQ-to-quote, invoice-to-approval, application-to-contract — and replace it with an automated pipeline. Your tools stay. The human copying between them disappears.",
-    get: ["End-to-end workflow map", "n8n / Make build", "Testing + deployment", "Full documentation"],
-    built: "n8n + Make + Google Workspace + Xero / DocuSign + your existing SaaS stack",
-    roi: "A freight forwarder cut their RFQ-to-quote time from 4 hours to 11 minutes.",
-    price: "AED 5,000 / AUD 2,500 setup",
+    icon: <Shield size={22} />,
+    name: "Workflow Automation",
+    price: "From AED 5,000 / AUD 2,200",
+    description:
+      "End-to-end process automation for document routing, invoice chasing, onboarding, and reporting — built to your industry's data-residency rules.",
+    includes: [
+      "Process mapping and bottleneck audit",
+      "n8n / Make / Zapier build (your choice of stack)",
+      "Data-flow diagrams for compliance review",
+      "Staff handover documentation",
+    ],
   },
   {
-    n: "Service 03",
-    title: "An AI that works your inbox while you sleep",
+    icon: <Bot size={22} />,
     name: "AI Agent Deployment",
-    desc: "Custom AI agents — powered by Claude or GPT-4 — that handle repetitive decisions: responding to inquiries, triaging support tickets, filtering job applications, generating first-draft reports.",
-    get: ["Custom-trained AI agent", "Inbox / Slack / WhatsApp integration", "Weekly performance report"],
-    built: "Claude + n8n + Apify + your CRM / comms stack",
-    roi: "An accounting firm automated 70% of client inquiry responses without a single complaint.",
-    price: "AED 7,500 / AUD 3,500 setup + monthly retainer",
+    price: "From AED 7,500 / AUD 3,500",
+    description:
+      "Purpose-built AI agents for client communication, document analysis, and internal ops — scoped to your regulatory environment before a single line is written.",
+    includes: [
+      "Regulatory scoping session (PDPL / Privacy Act / PDPA)",
+      "LLM selection and data-residency verification",
+      "Agent build, testing, and red-team review",
+      "Ongoing monitoring dashboard",
+    ],
   },
-];
-
-const scoping = [
-  "Every engagement starts with a Free AI Audit (60 min) — we map workflows before writing any code.",
-  "We work with your existing tools — no forced software migrations.",
-  "Every automation is documented — you own it, even if you stop working with us.",
-  "No retainers without proven ROI first — pilot, prove, then expand.",
 ];
 
 export default function Services() {
+  useSEO({
+    title: "AI Automation Services & Pricing — WeHA | UAE · Australia · Singapore",
+    description:
+      "Lead capture automation from AED 3,500, workflow automation from AED 5,000, and AI agent deployment from AED 7,500. Every engagement starts with a free 60-minute AI Audit. Compliance-grade across UAE, Australia, and Singapore.",
+    canonical: "/services",
+  });
+
   return (
     <div data-testid="services-page" className="overflow-x-hidden">
       <PageHero
         kicker="Services"
-        title="Three things we build. One outcome:"
-        italicWord="your time back."
-        subtitle="We don't sell vague 'AI transformation.' We build specific, scoped systems that solve one workflow at a time."
+        title="Automation built for"
+        italicWord="regulated industries."
+        subtitle="Three service tiers. All starting with a free 60-minute AI Audit. All scoped to your regulator before we write a line of code."
         formHeading="Get the AI Transformation Playbook"
         formTestid="services-lead-form"
         formSource="services"
       />
 
       <ScrollSection direction="left">
-      <section className="section-glass relative section-solid py-12 md:py-16">
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 space-y-8">
-          {services.map((s, i) => (
-            <Reveal key={s.n} delay={(i % 2) * 0.08}>
-              <article className="weha-card p-8 md:p-12 grid gap-10 lg:grid-cols-[1.4fr_1fr]" data-testid={`service-card-${i + 1}`}>
-                <div>
-                  <span className="text-xs font-semibold tracking-widest uppercase text-weha-teal">{s.n}</span>
-                  <h2 className="weha-display text-3xl md:text-4xl mt-3 text-weha-text leading-tight">{s.title}</h2>
-                  <p className="mt-2 text-sm uppercase tracking-wider text-weha-faint">{s.name}</p>
-                  <p className="mt-5 text-weha-muted leading-relaxed text-base md:text-lg">{s.desc}</p>
-                  <div className="mt-7 rounded-xl border border-weha-border bg-weha-bg p-5">
-                    <p className="text-weha-text leading-relaxed italic">"{s.roi}"</p>
-                  </div>
-                </div>
-                <div className="lg:border-l lg:border-weha-border lg:pl-10">
-                  <p className="weha-label">What you get</p>
-                  <ul className="space-y-2.5">
-                    {s.get.map((g) => (
-                      <li key={g} className="flex gap-3 text-weha-text">
-                        <span className="text-weha-teal mt-1.5 h-1.5 w-1.5 rounded-full bg-weha-teal shrink-0" />
-                        {g}
-                      </li>
-                    ))}
-                  </ul>
-                  <p className="weha-label mt-7">Built with</p>
-                  <p className="text-weha-muted leading-relaxed">{s.built}</p>
-                  <p className="weha-label mt-7">Starting from</p>
-                  <p className="weha-display text-2xl text-weha-text">{s.price}</p>
-                </div>
-              </article>
-            </Reveal>
-          ))}
-        </div>
-      </section>
+        <section className="section-glass py-16 md:py-24">
+          <div className="max-w-7xl mx-auto px-5 sm:px-8">
+            <ul className="grid gap-8 lg:grid-cols-3">
+              {services.map((s, i) => (
+                <Reveal key={i} delay={i * 0.1}>
+                  <li className="weha-card p-8 flex flex-col gap-5">
+                    <span className="inline-flex text-weha-teal">{s.icon}</span>
+                    <div>
+                      <h2 className="font-semibold text-weha-text text-lg mb-1">{s.name}</h2>
+                      <p className="text-xs font-semibold text-weha-teal tracking-wide mb-3">{s.price}</p>
+                      <p className="text-weha-muted text-sm leading-relaxed">{s.description}</p>
+                    </div>
+                    <ul className="space-y-2 mt-auto">
+                      {s.includes.map((item, j) => (
+                        <li key={j} className="flex gap-2 text-sm text-weha-muted">
+                          <span className="text-weha-teal mt-0.5">✦</span> {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                </Reveal>
+              ))}
+            </ul>
+          </div>
+        </section>
       </ScrollSection>
 
       <ScrollSection direction="right">
-      <section className="section-glass py-20 md:py-28 bg-weha-surface border-y border-weha-border">
-        <div className="max-w-7xl mx-auto px-5 sm:px-8">
-          <Reveal>
-            <h2 className="weha-display text-4xl md:text-5xl text-weha-text">How WeHA scopes projects.</h2>
-          </Reveal>
-          <div className="mt-12 grid gap-8 md:grid-cols-2">
-            {scoping.map((s, i) => (
-              <Reveal key={i} delay={(i % 2) * 0.08}>
-                <div className="flex gap-5">
-                  <span className="weha-display text-3xl text-weha-teal/40">{String(i + 1).padStart(2, "0")}</span>
-                  <p className="text-lg text-weha-text leading-relaxed">{s}</p>
-                </div>
-              </Reveal>
-            ))}
+        <section className="section-solid py-20 md:py-28">
+          <div className="max-w-3xl mx-auto px-5 sm:px-8 text-center">
+            <Reveal>
+              <h2 className="weha-display text-3xl md:text-4xl text-weha-text mb-4">
+                Every engagement starts the same way.
+              </h2>
+              <p className="text-weha-muted leading-relaxed mb-8">
+                A free 60-minute AI Audit where we map your workflows and identify your compliance constraints — before we quote anything.
+              </p>
+              <Link to="/contact" className="btn-teal" data-cursor="hover">
+                Book Free AI Audit <ArrowRight size={16} />
+              </Link>
+            </Reveal>
           </div>
-        </div>
-      </section>
-      </ScrollSection>
-
-      <ScrollSection direction="left">
-      <CTABanner
-        heading="Not sure which service fits? Start with the audit."
-        sub="Sixty minutes. We map your workflows, then tell you which one is worth automating first."
-        cta="Start With the Audit"
-        testid="services-cta"
-      />
+        </section>
       </ScrollSection>
     </div>
   );
