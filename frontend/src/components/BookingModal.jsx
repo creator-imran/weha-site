@@ -121,7 +121,8 @@ export default function BookingModal({ open, onOpenChange }) {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         data-testid="booking-modal"
-        className="!max-w-4xl !p-0 !gap-0 overflow-hidden border-weha-border bg-weha-bg text-weha-text shadow-2xl rounded-2xl max-h-[92vh] overflow-y-auto"
+        style={{ maxWidth: "min(1120px, 95vw)" }}
+        className="!p-0 !gap-0 overflow-hidden border-weha-border bg-weha-bg text-weha-text shadow-2xl rounded-2xl max-h-[92vh] overflow-y-auto"
       >
         {/* sr-only title/desc to satisfy radix a11y */}
         <DialogTitle className="sr-only">Book a Free AI Audit</DialogTitle>
@@ -153,9 +154,9 @@ export default function BookingModal({ open, onOpenChange }) {
             </button>
           </div>
         ) : (
-          <div className="grid md:grid-cols-[1.05fr_1fr]">
+          <div className="grid md:grid-cols-[320px_1fr]">
             {/* LEFT — context column */}
-            <aside className="hidden md:flex flex-col justify-between p-7 lg:p-9 bg-weha-surface border-r border-weha-border">
+            <aside className="hidden md:flex flex-col justify-between p-7 lg:p-8 bg-weha-surface border-r border-weha-border">
               <div>
                 <span className="text-xs font-semibold tracking-[0.2em] uppercase text-weha-teal">
                   Free · 60 minutes
@@ -204,12 +205,12 @@ export default function BookingModal({ open, onOpenChange }) {
                     {TIMEZONES.map(z => <option key={z.value} value={z.value}>{z.label}</option>)}
                   </select>
 
-                  <div className="grid gap-5 md:grid-cols-2">
-                    <div>
+                  <div className="grid gap-5 lg:grid-cols-[minmax(260px,320px)_1fr]">
+                    <div className="min-w-0">
                       <label className="weha-label flex items-center gap-2">
                         <CalendarIcon size={13} /> Select a date
                       </label>
-                      <div className="weha-card p-2">
+                      <div className="weha-card p-2 overflow-hidden">
                         <Calendar
                           mode="single"
                           selected={date}
@@ -220,14 +221,36 @@ export default function BookingModal({ open, onOpenChange }) {
                           }}
                           fromDate={today}
                           toDate={horizon}
+                          className="w-full p-2"
+                          classNames={{
+                            months: "w-full",
+                            month: "w-full space-y-3",
+                            caption: "flex justify-center pt-1 relative items-center px-1",
+                            caption_label: "text-sm font-medium",
+                            nav: "space-x-1 flex items-center",
+                            nav_button: "h-7 w-7 inline-flex items-center justify-center rounded-md border border-weha-border bg-transparent p-0 opacity-70 hover:opacity-100 hover:border-weha-teal",
+                            nav_button_previous: "absolute left-1",
+                            nav_button_next: "absolute right-1",
+                            table: "w-full border-collapse",
+                            head_row: "grid grid-cols-7 mb-1",
+                            head_cell: "text-weha-faint font-normal text-[0.72rem] py-1",
+                            row: "grid grid-cols-7 mt-1",
+                            cell: "relative p-0 text-center text-sm focus-within:relative focus-within:z-20",
+                            day: "h-9 w-full p-0 font-normal rounded-md hover:bg-weha-surface aria-selected:opacity-100 transition-colors",
+                            day_selected: "!bg-weha-teal !text-white hover:!bg-weha-teal hover:!text-white focus:!bg-weha-teal focus:!text-white",
+                            day_today: "border border-weha-teal/40 text-weha-teal",
+                            day_outside: "text-weha-faint/40",
+                            day_disabled: "text-weha-faint/40 opacity-40 cursor-not-allowed",
+                            day_hidden: "invisible",
+                          }}
                         />
                       </div>
                     </div>
-                    <div>
+                    <div className="min-w-0">
                       <label className="weha-label flex items-center gap-2">
                         <Clock size={13} /> Available times
                       </label>
-                      <div className="weha-card p-3 min-h-[260px]">
+                      <div className="weha-card p-3 min-h-[260px] max-h-[320px] overflow-y-auto">
                         {!date && (
                           <p className="text-weha-faint text-sm p-4">Pick a date to see open slots.</p>
                         )}
@@ -240,7 +263,7 @@ export default function BookingModal({ open, onOpenChange }) {
                           <p className="text-weha-faint text-sm p-4">No open slots that day. Try another date.</p>
                         )}
                         {date && !loadingSlots && slots.length > 0 && (
-                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2" data-testid="booking-slots">
+                          <div className="grid grid-cols-3 sm:grid-cols-4 gap-2" data-testid="booking-slots">
                             {slots.map(s => {
                               const isActive = selectedSlot?.iso_utc === s.iso_utc;
                               return (
@@ -250,7 +273,7 @@ export default function BookingModal({ open, onOpenChange }) {
                                   disabled={s.taken}
                                   onClick={() => setSelectedSlot({ iso_utc: s.iso_utc, label: s.label })}
                                   data-testid={`slot-${s.label}`}
-                                  className={`text-sm rounded-lg border px-3 py-2 transition-all ${
+                                  className={`text-sm rounded-lg border px-2.5 py-2 transition-all ${
                                     s.taken
                                       ? "opacity-35 line-through cursor-not-allowed border-weha-border"
                                       : isActive

@@ -181,6 +181,39 @@ agent_communication:
       message: "BUG FIX — Mobile menu had no opaque background on mobile devices: header bar (top 64px) stayed transparent when scrollY=0 so the 3D network chips bled through the top edge of the open menu. Fixed in src/components/Header.jsx by (1) forcing header to solid bg-weha-bg when mobile menu is open and (2) adding explicit z-40 to the mobile menu panel for cross-browser stacking stability. Please verify on mobile viewport (e.g. 390x844): opening the mobile menu must show a fully opaque background — light cream (#f7f6f2) in light mode, dark (#171614) in dark mode — with NO 3D network chips/text visible through the menu area (including the top header bar). Also confirm tapping a nav link closes the menu and navigates. Toggle theme button and 'Book a Free Audit' CTA inside the menu should still work."
 
 frontend:
+  - task: "Booking modal layout (calendar/slots overlap fix)"
+    implemented: true
+    working: true
+    file: "frontend/src/components/BookingModal.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: false
+          agent: "user"
+          comment: "Reported with screenshot: the calendar grid was overlapping the 'Pick a date to see open slots' panel inside the booking modal — calendar cells bled into the slot column making the UI unreadable."
+        - working: "NA"
+          agent: "main"
+          comment: "Root cause: the right pane of the modal was too narrow (modal was max-w-4xl with a 1.05fr info panel hogging half), so the inner 2-col grid (calendar | slots) couldn't fit the calendar's natural width and it overflowed. Fixes: (1) explicit modal width via style {maxWidth: min(1120px, 95vw)}, (2) info panel pinned to 320px so booking pane gets the rest, (3) inner layout switched to grid-cols-[minmax(260px,320px)_1fr], (4) overrode shadcn Calendar classNames to use grid-cols-7 (instead of flex) so the calendar table fills its container without overflow, (5) added overflow-hidden + min-w-0 to columns. Visual confirms calendar=302px, slots=360px, side-by-side, no overlap. Needs verification on desktop and mobile widths."
+        - working: true
+          agent: "testing"
+          comment: "✅ VERIFIED BOTH DESKTOP AND MOBILE. DESKTOP (1920x900): Modal width exactly 1120px as targeted. Calendar width 302px (within 280-360px range). NO OVERLAP confirmed - calendar right edge at 1068px, slots panel starts at 1097px (29px gap). All 7 weekday headers (Su Mo Tu We Th Fr Sa) visible and properly aligned in grid-cols-7 layout. Timezone dropdown visible and functional - tested changing from Dubai to Asia/Kolkata, slots reload correctly. MOBILE (390x844): Left info panel correctly hidden on mobile (display:none). Calendar and slots stack VERTICALLY as expected (calendar bottom 514px, slots top 570px). No horizontal overflow - modal 370.5px fits within 390px viewport. Modal background fully opaque (rgb(247,246,242)) with no 3D scene bleed-through. All layout requirements met, bug fix successful."
+
+  - task: "Integration logo ticker below hero (Xero, n8n, HubSpot, WhatsApp, Claude, Make, Airtable, OpenAI, Zapier, Slack, Notion, Apify)"
+    implemented: true
+    working: true
+    file: "frontend/src/components/IntegrationStrip.jsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Built infinite horizontal ticker using Simple Icons CDN (cdn.simpleicons.org/<slug>). 12 logos rendered grayscale at 60% opacity, brand color on hover. Marquee CSS animation 38s linear infinite, hover-pause, prefers-reduced-motion respected. Edge-fade masks. Placed between hero and pain sections on Home page. Needs verification: section renders on Home, logos load, animation runs."
+        - working: true
+          agent: "testing"
+          comment: "✅ VERIFIED ALL REQUIREMENTS. Integration strip [data-testid='integration-strip'] exists and visible on home page between hero and pain sections. Header text 'FLUENT IN YOUR STACK' renders correctly. All 9 required logos present in DOM (each appears twice for seamless loop): xero, n8n, hubspot, whatsapp, anthropic (Claude), make, airtable, openai, zapier. Marquee animation working - logos moved 119.3px in 2 seconds, confirming smooth continuous scroll. Animation correctly pauses on hover (animationPlayState: paused). Edge fade masks visible. All logos load from Simple Icons CDN and display with grayscale/opacity styling. Feature fully functional."
+
   - task: "Mobile menu background (light + dark themes)"
     implemented: true
     working: true
@@ -210,3 +243,5 @@ agent_communication:
       message: "✅ MOBILE MENU BUG FIX VERIFIED. Tested on mobile viewport (390x844) in both light and dark modes. Header and menu backgrounds are fully opaque with correct colors. No 3D network elements bleeding through the visible menu area. All navigation and CTA functionality working correctly. Screenshots confirm the fix is successful."
     - agent: "testing"
       message: "✅ BOOKING SYSTEM FULLY VERIFIED (16/16 tests passed). Created /app/backend_test_booking.py and comprehensively tested all new booking endpoints. GET /api/availability works correctly with all allowed timezones (Dubai, Sydney, Kolkata, Singapore, New_York), rejects invalid timezones with 400, handles weekends/past dates correctly, returns 18 slots (9:00-17:30) for weekdays. POST /api/audit-requests with slot booking: successfully creates bookings with slot_iso_utc, marks slots as taken, prevents double-booking (409), validates past slots (422), validates invalid formats (422), maintains backwards compatibility (works without slot). All regression tests passed. No issues found."
+    - agent: "testing"
+      message: "✅ WEHA WEBSITE VERIFICATION COMPLETE - ALL TESTS PASSED. Verified two changes: (A) Booking modal calendar/slot layout fix - PASS on both desktop (1920x900) and mobile (390x844). Desktop: Modal 1120px wide, calendar 302px (within spec), NO overlap (29px gap between calendar and slots), all 7 weekday headers visible, timezone switching works. Mobile: Info panel hidden, vertical stacking correct, no overflow, opaque background. (B) Integration logo ticker - PASS. Strip visible with 'FLUENT IN YOUR STACK' header, all 9 required logos present (xero, n8n, hubspot, whatsapp, anthropic, make, airtable, openai, zapier), marquee animates smoothly (119px/2s), pauses on hover. Both features fully functional. Screenshots saved for record."

@@ -5,6 +5,7 @@ import Reveal from "@/components/Reveal";
 import Parallax from "@/components/Parallax";
 import MaskReveal from "@/components/MaskReveal";
 import Magnetic from "@/components/Magnetic";
+import IntegrationStrip from "@/components/IntegrationStrip";
 import { useBooking } from "@/context/BookingContext";
 
 const pains = [
@@ -104,6 +105,9 @@ export default function Home() {
           <span className="scroll-cue" />
         </motion.div>
       </section>
+
+      {/* INTEGRATION LOGO TICKER — tool fluency */}
+      <IntegrationStrip />
 
       {/* PAIN — glass cards floating over the network */}
       <section className="relative py-24 md:py-32">

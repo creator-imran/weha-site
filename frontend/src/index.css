@@ -230,6 +230,31 @@
         70% { transform: translateY(14px); opacity: 0; }
         100% { transform: translateY(0); opacity: 0; }
     }
+
+    /* Integration logo ticker */
+    .weha-marquee {
+        display: flex;
+        overflow: hidden;
+        mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to right, transparent 0, #000 8%, #000 92%, transparent 100%);
+    }
+    .weha-marquee__track {
+        display: flex;
+        flex-shrink: 0;
+        align-items: center;
+        animation: weha-marquee 38s linear infinite;
+        will-change: transform;
+    }
+    .weha-marquee:hover .weha-marquee__track {
+        animation-play-state: paused;
+    }
+    @keyframes weha-marquee {
+        from { transform: translateX(0); }
+        to   { transform: translateX(-50%); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .weha-marquee__track { animation: none; }
+    }
 }
 
 @media (pointer: fine) {
