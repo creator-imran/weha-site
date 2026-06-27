@@ -24,3 +24,8 @@ backend/venv/
 # OS / editor cruft
 .DS_Store
 **/.DS_Store
+.env.*
+credentials.json
+*.pem
+*.key
+.credentials
