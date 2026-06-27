@@ -44,7 +44,7 @@ export default function Header() {
     >
       <div className="max-w-7xl mx-auto px-5 sm:px-8 h-16 md:h-[72px] flex items-center justify-between">
         <Link to="/" className="text-weha-text" data-testid="header-logo-link" onClick={() => setOpen(false)}>
-          <Logo />
+          <Logo animated />
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">
